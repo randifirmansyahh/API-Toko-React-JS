@@ -1,0 +1,335 @@
+FORMAT: 1A
+HOST: http://localhost:3200
+# Sample REST API - TOKO
+## Authorization [/auth/signin]
+### Sign In [POST]
++ Request (application/json)
+    + Body
+
+            {
+                "email": "user@mail.com",
+                "password": "secret"
+            }
++ Response 200 (application/json)
+    + Body
+
+            {
+                "status": "OK",
+                "messages": "Login Berhasil",
+                "data": {
+                    "email": "user@mail.com",
+                    "name": "Asep Ardi",
+                    "address": "Bandung, Indonesia",
+                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU1ZGY0NTA1LWQ2NWEtNDFhMS05M2E4LWM5ZGJlMjQ0OTFlNSIsImlhdCI6MTYyOTE2Mjk0MiwiZXhwIjoxNjI5MjQ5MzQyfQ.JCHqkzCns9HQMY8w1VQfkkxPJg56HIe_kj1b95WKyhc"
+                }
+            }
++ Response 400 (application/json)
+    + Body
+
+            {
+                "status": "ERROR",
+                "messages": "Password tidak valid"
+            }
+## User [/auth/me]
+### Get Current User [GET]
++ Request (application/json)
+    + Headers
+
+            Authorization: token
++ Response 200 (application/json)
+    + Body
+
+            {
+                "status": "OK",
+                "messages": "User terdaftar",
+                "data": {
+                    "email": "user@mail.com",
+                    "name": "Asep Ardi",
+                    "address": "Bandung, Indonesia"
+                }
+            }
+## User [/users]
+### Edit User [PUT]
++ Request (application/json)
+    + Body
+
+            {
+                "name": "Asep Ardi",
+                "email": "user@mail.com",
+                "address": "Bandung"
+            }
+    + Headers
+
+            Authorization: token
++ Response 200 (application/json)
+    + Body
+
+            {
+                "status": "OK",
+                "messages": "User berhasil diupdate"
+            }
++ Response 400 (application/json)
+    + Body
+
+            {
+                "status": "ERROR",
+                "messages": "User tidak terdaftar"
+            }
+## Products Collection [/products]
+### List All [GET]
++ Response 200 (application/json)
+
+        {
+            "status": "OK",
+            "messages": "",
+            "data": [
+                {
+                    "id": "0af42b17-f6ed-40ec-8a95-8b0586188587",
+                    "name": "Ergonomic Cotton Soap",
+                    "price": 417,
+                    "category_id": "28c9668d-d17e-49bd-8d04-8c77050b6ee3",
+                    "image": "https://ik.imagekit.io/duogwqkwlvc/product-52a8bd82-f5a0-11eb-8ac3-fdb820fd4276_ygKV0bzWT.jpeg",
+                    "slug": "Ergonomic-Cotton-Soap",
+                    "createdAt": "2021-08-08T13:27:03.000Z",
+                    "updatedAt": "2021-08-08T13:27:03.000Z"
+                },
+                {
+                    "id": "4629bc78-8e5f-4bcf-a7b9-28a036ad40c4",
+                    "name": "Handmade Steel Chair",
+                    "price": 886,
+                    "category_id": "28c9668d-d17e-49bd-8d04-8c77050b6ee3",
+                    "image": "https://ik.imagekit.io/duogwqkwlvc/product-67aa89e0-f5a0-11eb-9329-6748f6021745_kOIDOSfLVY.jpeg",
+                    "slug": "Handmade-Steel-Chair",
+                    "createdAt": "2021-08-08T13:27:03.000Z",
+                    "updatedAt": "2021-08-08T13:27:03.000Z"
+                }
+            ]
+        }
+## Single Product [/products/:slug]
+### Product by slug [GET]
++ Response 200 (application/json)
+
+        {
+        "status": "OK",
+        "messages": "",
+            "data": {
+                "id": "0af42b17-f6ed-40ec-8a95-8b0586188587",
+                "name": "Ergonomic Cotton Soap",
+                "price": 417,
+                "category_id": "28c9668d-d17e-49bd-8d04-8c77050b6ee3",
+                "image": "https://ik.imagekit.io/duogwqkwlvc/product-52a8bd82-f5a0-11eb-8ac3-fdb820fd4276_ygKV0bzWT.jpeg",
+                "slug": "Ergonomic-Cotton-Soap",
+                "createdAt": "2021-08-08T13:27:03.000Z",
+                "updatedAt": "2021-08-08T13:27:03.000Z"
+            }
+        }
+## Categories Collection [/categories]
+### List All [GET]
++ Response 200 (application/json)
+
+        {
+            "status": "OK",
+            "messages": "",
+            "data": [
+                {
+                    "id": "0c8baa12-fd67-4919-93ed-5c81db4b956b",
+                    "name": "hijau",
+                    "createdAt": "2021-08-08T13:27:03.000Z",
+                    "updatedAt": "2021-08-08T13:27:03.000Z"
+                },
+                {
+                    "id": "28c9668d-d17e-49bd-8d04-8c77050b6ee3",
+                    "name": "kuning",
+                    "createdAt": "2021-08-08T13:27:03.000Z",
+                    "updatedAt": "2021-08-08T13:27:03.000Z"
+                },
+                {
+                    "id": "d9f3d190-869e-44e9-99c6-bc525bf84334",
+                    "name": "biru",
+                    "createdAt": "2021-08-08T13:27:03.000Z",
+                    "updatedAt": "2021-08-08T13:27:03.000Z"
+                }
+            ]
+        }
+## Carts Collection [/carts]
+### List All [GET]
++ Request
+    + Headers
+    
+            Authorization: token
++ Response 200 (application/json)
+
+        {
+            "status": "OK",
+            "messages": "",
+            "data": [
+                {
+                    "id": "02c31841-f497-4d47-9278-c71defc616cc",
+                    "customer_id": "",
+                    "product_id": "4629bc78-8e5f-4bcf-a7b9-28a036ad40c4",
+                    "order_id": "",
+                    "quantity": 1,
+                    "status": 0,
+                    "createdAt": "2021-08-08T14:34:28.000Z",
+                    "updatedAt": "2021-08-08T14:34:28.000Z"
+                },
+                {
+                    "id": "0961d688-d396-4f02-b4f5-6453e154b13e",
+                    "customer_id": "",
+                    "product_id": "4629bc78-8e5f-4bcf-a7b9-28a036ad40c4",
+                    "order_id": "",
+                    "quantity": 1,
+                    "status": 0,
+                    "createdAt": "2021-08-08T14:39:59.000Z",
+                    "updatedAt": "2021-08-08T14:39:59.000Z"
+                },
+            ]
+        }
+### Add to Cart [POST]
++ Request (application/json)
+    + Body
+    
+            {
+                "product_id": "02c31841-f497-4d47-9278-c71defc616cc",
+                "quantity": 1
+            }
+    + Headers
+
+            Authorization: token
++ Response 201 (application/json)
+    + Body
+
+            {
+                "status": "OK",
+                "messages": "Keranjang berhasil ditambahkan",
+                "data": {
+                    "id": "88a6fb4f-86fb-4c0a-b717-cc777baa3f3f",
+                    "customer_id": "1234",
+                    "product_id": 123,
+                    "quantity": 1,
+                    "status": 0,
+                    "updatedAt": "2021-08-14T07:37:22.396Z",
+                    "createdAt": "2021-08-14T07:37:22.396Z"
+                }
+            }
+## Single Cart [/carts/:id]
+### Edit Cart [PUT]
++ Request (application/json)
+    + Body
+    
+            {
+                "product_id": "02c31841-f497-4d47-9278-c71defc616cc",
+                "quantity": 1
+            }
+    + Headers
+    
+            Authorization: token
++ Response 201 (application/json)
+    + Body
+
+            {
+                "status": "OK",
+                "messages": "Keranjang berhasil diupdate"
+            }
+## Orders Collection [/orders]
+### List All [GET]
++ Request
+    + Headers
+    
+            Authorization: token
++ Response 200 (application/json)
+
+        {
+            "status": "OK",
+            "messages": "",
+            "data": [
+                {
+                "id": "09f6e7fb-0709-429a-ba2b-c8c1fa5889b7",
+                "customer_id": "e5df4505-d65a-41a1-93a8-c9dbe24491e5",
+                "status": 0,
+                "createdAt": "2021-08-17T00:12:46.000Z",
+                "updatedAt": "2021-08-17T00:12:46.000Z",
+                "carts": [
+                    {
+                        "quantity": 3,
+                        "product": {
+                            "name": "Handmade Steel Chair",
+                            "price": 886,
+                            "image": "https://ik.imagekit.io/duogwqkwlvc/product-67aa89e0-f5a0-11eb-9329-6748f6021745_kOIDOSfLVY.jpeg"
+                        }
+                    },
+                    {
+                        "quantity": 1,
+                        "product": {
+                            "name": "Gorgeous Granite Cheese",
+                            "price": 920,
+                            "image": "https://ik.imagekit.io/duogwqkwlvc/product-67aa89e0-f5a0-11eb-9329-6748f6021745_kOIDOSfLVY.jpeg"
+                        }
+                    }
+                ]
+            ]
+        }
+### Checkout [POST]
++ Request
+    + Headers
+
+            Authorization: token
++ Response 201 (application/json)
+    + Body
+
+            {
+                "status": "OK",
+                "messages": "Checkout berhasil"
+            }
++ Response 400 (application/json)
+    + Body
+
+            {
+                "status": "ERROR",
+                "messages": "Keranjang masih kosong"
+            }
+## Notifications Collection [/notifications]
+### List All [GET]
++ Request
+    + Headers
+    
+            Authorization: token
++ Response 200 (application/json)
+
+        {
+            "status": "OK",
+            "messages": "",
+            "data": [
+                {
+                    "id": "0088eceb-24bc-476a-9343-65dbd58e6eab",
+                    "customer_id": "ba5ae9b2-44b7-404b-8810-9d600ff36d81",
+                    "order_id": "16acc017-f055-40d0-a787-29fc933f82d2",
+                    "message": "Pesanan Anda sudah dibuat, silakan lakukan pembayaran",
+                    "status": 1,
+                    "createdAt": "2021-08-30T16:01:28.000Z",
+                    "updatedAt": "2021-08-30T16:03:14.000Z"
+                },
+                {
+                    "id": "1f761800-0029-43f8-81dc-fa515088f633",
+                    "customer_id": "ba5ae9b2-44b7-404b-8810-9d600ff36d81",
+                    "order_id": "72a65e36-7664-42f6-8ff3-9fd626ea957e",
+                    "message": "Pesanan Anda sudah dibuat, silakan lakukan pembayaran",
+                    "status": 1,
+                    "createdAt": "2021-08-30T15:59:17.000Z",
+                    "updatedAt": "2021-08-30T16:03:16.000Z"
+                },
+            ]
+        }
+## Single Notification [/notifications/:id]
+### Set as Read [PUT]
++ Request
+    + Headers
+
+            Authorization: token
++ Response 201 (application/json)
+    + Body
+
+            {
+                "status": "OK",
+                "messages": "Notifikasi berhasil diupdate"
+            }

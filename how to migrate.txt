@@ -1,0 +1,27 @@
+Install library/dependencies dengan menjalankan perintah :
+
+npm install
+
+Sesuaikan konfigurasi database pada file config/config.json
+
+Eksekusi perintah berikut untuk membuat database, table dan migrasi data :
+
+npm install --save sequelize-cli <-- install ini supaya bisa npx yang dibawah
+
+npx sequelize db:create <-- membuat database
+
+npx sequelize db:migrate <-- migrasi tabel
+
+npx sequelize db:seed:all <-- mengisi data default
+
+Jika ingin menjalankan seed untuk file tertentu maka lakukan peirntah ini :
+
+npx sequelize db:seed --seed {path_file}
+
+Jalankan server dengan perintah berikut :
+
+npm run dev
+
+Untuk informasi userlogin dapat dilihat pada file seeders/20210808074647-users.js
+
+Selamat mencoba

@@ -1,0 +1,20 @@
+sequelize model:create --name users --attributes name:string,email:string,address:string
+sequelize model:create --name products --attributes name:string,price:float,category_id:string,image:string
+sequelize model:create --name categories --attributes name:string
+sequelize model:create --name carts --attributes customer_id:string,product_id:string,order_id:string,quantity:integer,status:integer
+sequelize model:create --name orders --attributes customer_id:string,status:integer
+sequelize model:create --name notifications --attributes customer_id:string,order_id:string,message:string,status:integer
+
+sequelize seed:generate --name products
+sequelize seed:generate --name categories
+sequelize seed:generate --name users
+
+
+sequelize db:drop // hapus database
+sequelize db:create // buat database
+sequelize db:migrate // migrasi setelah melakukan pembuatan model table
+sequelize db:seed:all // mengisi data dummy
+
+sequelize db:seed --seed ./seeders/20210808074647-users.js
+
+
